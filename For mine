@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be My Valentine?</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        body {
+            background-color: #ffebee;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            text-align: center;
+        }
+        .container {
+            padding: 30px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            width: 350px;
+            position: relative;
+        }
+        img { width: 100%; border-radius: 15px; margin-bottom: 15px; }
+        h1 { color: #d32f2f; font-size: 1.4rem; }
+        
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 25px;
+            font-size: 1rem;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        #yesBtn { background-color: #4caf50; color: white; }
+        #noBtn { 
+            background-color: #f44336; 
+            color: white; 
+            position: absolute; 
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <img src="your-photo.jpg" alt="Valentine">
+        <h1 id="question">Will you be my Valentine? ❤️</h1>
+        
+        <div class="buttons">
+            <button id="yesBtn" onclick="celebrate()">Yes</button>
+            <button id="noBtn" onmouseover="moveButton()">No</button>
+        </div>
+
+        <audio id="bgMusic" loop>
+            <source src="your-song.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <script>
+        // Function to move the "No" button
+        function moveButton() {
+            const noBtn = document.getElementById('noBtn');
+            // Calculate random positions within the screen
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
+        }
+
+        // Function for when "Yes" is clicked
+        function celebrate() {
+            const audio = document.getElementById('bgMusic');
+            audio.play(); // Starts music on click
+            
+            document.getElementById('question').innerText = "Yay! I love you! ❤️";
+            document.getElementById('noBtn').style.display = 'none';
+            
+            // Confetti effect
+            confetti({
+                particleCount: 150,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+        }
+    </script>
+</body>
+</html>
